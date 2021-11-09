@@ -2,8 +2,8 @@ Discord bot created by {user} for fun
 
 List of features/commands:
 *Responds to any message containing "weed"
-*use command "!add [respons]" to add new reply
-*use command "!all" to list all response in random(feature) order
+*"!add [respons]" to add new reply
+*"!all" to list all response in random(feature) order
 
 
 Goal of bot:

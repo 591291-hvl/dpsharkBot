@@ -34,6 +34,7 @@ async def on_message(message):
         print(value)
 
     elif "!all" in message.content:
+        #add to method
         keys = db.keys()
         strOut = ""
         for x in keys:
