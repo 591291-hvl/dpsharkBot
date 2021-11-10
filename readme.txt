@@ -4,6 +4,7 @@ List of features/commands:
 *Responds to any message containing "weed"
 *"!add [respons]" to add new reply
 *"!all" to list all response in random(feature) order
+*"!remove [number]" removes reply
 
 
 Goal of bot:

@@ -22,32 +22,35 @@ client = discord.Client()
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
 
-
+#Text responses
 @client.event
 async def on_message(message):
-    if message.author == client.user:
-        return
+	if message.author == client.user:
+		return
 
-    if message.content.startswith("!add"):
-        weeddb.add_respons(nrWeed, message.content[5:])
-        value = db["nrWeedRespons"]
-        print(value)
+	if message.content.startswith("!add"):
+		weeddb.add_respons(message.content)
+		
+	elif "!all" in message.content:
+		#add to method
+		keys = db.keys()
+		strOut = ""
+		for x in keys:
+			if (x.isdigit()):
+				print(x)
+				strOut += (x + " " + str(db[x]) + "\n")
+		await message.channel.send(strOut)
+	
 
-    elif "!all" in message.content:
-        #add to method
-        keys = db.keys()
-        strOut = ""
-        for x in keys:
-            if (x.isdigit()):
-                print(x)
-                strOut += (x + " " + str(db[x]) + "\n")
-        await message.channel.send(strOut)
+	elif message.content.startswith("!remove"):
+		weeddb.remove_respons(message.content)
+	
 
-    elif "weed" in message.content:
-        await message.channel.send(weeddb.print_respons())
+	elif "weed" in message.content:
+		await message.channel.send(weeddb.print_respons())
 
-    else:
-        print("Nothing")
+	else:
+		print("Nothing")
 
 
 #Functions, to be added to another class
