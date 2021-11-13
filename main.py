@@ -3,6 +3,7 @@ import discord
 import os
 
 import weeddb
+import countInfo
 
 #Should always be commented out
 #db["nrWeedRespons"] = 0
@@ -49,6 +50,22 @@ async def on_message(message):
 	elif "weed" in message.content:
 		await message.channel.send(weeddb.print_respons())
 
+	elif "!count" in message.content:
+		counter = 0
+
+		text_channel_list = []
+		for guild in client.guilds:
+			for channel in guild.text_channels:
+				text_channel_list.append(channel)
+
+		userID = message.author.id
+		for txtChannel in text_channel_list:
+			async for msg in txtChannel.history(limit=10000):
+				if msg.author.id == userID:
+					counter += 1
+		
+		await message.reply(counter, mention_author=True)
+	
 	else:
 		print("Nothing")
 

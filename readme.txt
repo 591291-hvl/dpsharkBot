@@ -5,6 +5,7 @@ List of features/commands:
 *"!add [respons]" to add new reply
 *"!all" to list all response in random(feature) order
 *"!remove [number]" removes reply
+*"!count" sends reply with number of messages sendt
 
 
 Goal of bot:
@@ -12,13 +13,16 @@ read messages sendt by users, and send response
 
 Todo:
 Database with list of response
+-Add general purpose use, non weed response
+-Structure database for general purpose
 -Check if user is mod for add/remove
--Remove responses
---O(n) remove and shuffle down
---O(1) remove and replace with bottom
--Give List of all responses
+-fix for longer list of responses
 --Downloadable .txt file
 --Message to user asked(nondownloadable)
 -Add new keywords
 -Add new list of responses to keyword
 --Database with responses? relationdatabase??
+-send ascii art
+-send dm's
+-find number of messages send by user
+-play music
