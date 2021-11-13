@@ -6,6 +6,7 @@ List of features/commands:
 *"!all" to list all response in random(feature) order
 *"!remove [number]" removes reply
 *"!count" sends reply with number of messages sendt
+*"!art" [word]" sends ascii art of word
 
 
 Goal of bot:
@@ -23,6 +24,7 @@ Database with list of response
 -Add new list of responses to keyword
 --Database with responses? relationdatabase??
 -send ascii art
+--fix length
 -send dm's
 -find number of messages send by user
 -play music

@@ -1,9 +1,10 @@
 from replit import db
 import discord
 import os
+import art
 
 import weeddb
-import countInfo
+#import countInfo
 
 #Should always be commented out
 #db["nrWeedRespons"] = 0
@@ -66,6 +67,9 @@ async def on_message(message):
 		
 		await message.reply(counter, mention_author=True)
 	
+	elif "!art" in message.content:
+		await message.channel.send("```\n" + art.text2art(message.content[5:]) + "\n```")
+
 	else:
 		print("Nothing")
 
