@@ -28,3 +28,5 @@ Database with list of response
 -send dm's
 -find number of messages send by user
 -play music
+-add list of commands("!help")
+-"!count" finds all channels in all servers

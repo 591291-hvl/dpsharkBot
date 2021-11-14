@@ -47,10 +47,7 @@ async def on_message(message):
 	elif message.content.startswith("!remove"):
 		weeddb.remove_respons(message.content)
 	
-
-	elif "weed" in message.content:
-		await message.channel.send(weeddb.print_respons())
-
+	#todo: move this to seperate class
 	elif "!count" in message.content:
 		counter = 0
 
@@ -69,6 +66,12 @@ async def on_message(message):
 	
 	elif "!art" in message.content:
 		await message.channel.send("```\n" + art.text2art(message.content[5:]) + "\n```")
+
+	elif "!github" in message.content:
+		await message.channel.send("https://github.com/591291-hvl/dpsharkBot")
+
+	elif "weed" in message.content.lower():
+		await message.channel.send(weeddb.print_respons())
 
 	else:
 		print("Nothing")
