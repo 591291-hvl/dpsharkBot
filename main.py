@@ -8,14 +8,14 @@ import weeddb
 
 #Should always be commented out
 #db["nrWeedRespons"] = 0
-nrWeed = db["nrWeedRespons"]
-print(str(nrWeed) + " nr of responses")
+#nrWeed = db["nrWeedRespons"]
+#print(str(nrWeed) + " nr of responses")
 
-print("test " + str(db["0"]))
+#print("test " + str(db["0"]))
 
-keys = db.keys()
-for x in keys:
-    print(x + " " + str(db[x]))
+#keys = db.keys()
+#for x in keys:
+#    print(x + " " + str(db[x]))
 
 client = discord.Client()
 
@@ -70,6 +70,16 @@ async def on_message(message):
 	elif "!github" in message.content:
 		await message.channel.send("https://github.com/591291-hvl/dpsharkBot")
 
+	elif message.content.lower().startswith("jeg er"):
+		await message.channel.send("Hei " + message.content[7:] + ", jeg er dpsharkBot")
+
+	elif "this is fine" in message.content.lower():
+		await message.channel.send(file=discord.File('other/thisisfine.jpg'))
+
+	elif client.user.mentioned_in(message):
+		await message.add_reaction("<:angryping:910511211928518746>")
+
+	#"main" function of bot
 	elif "weed" in message.content.lower():
 		await message.channel.send(weeddb.print_respons())
 
