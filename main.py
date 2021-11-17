@@ -4,7 +4,7 @@ import os
 import art
 
 import weeddb
-#import countInfo
+import countInfo
 
 #Should always be commented out
 #db["nrWeedRespons"] = 0
@@ -49,20 +49,7 @@ async def on_message(message):
 	
 	#todo: move this to seperate class
 	elif "!count" in message.content:
-		counter = 0
-
-		text_channel_list = []
-		for guild in client.guilds:
-			for channel in guild.text_channels:
-				text_channel_list.append(channel)
-
-		userID = message.author.id
-		for txtChannel in text_channel_list:
-			async for msg in txtChannel.history(limit=10000):
-				if msg.author.id == userID:
-					counter += 1
-		
-		await message.reply(counter, mention_author=True)
+		await message.reply(await countInfo.get_count(message.content[7:],client, message), mention_author=True)
 	
 	elif "!art" in message.content:
 		await message.channel.send("```\n" + art.text2art(message.content[5:]) + "\n```")
@@ -77,7 +64,8 @@ async def on_message(message):
 		await message.channel.send(file=discord.File('other/thisisfine.jpg'))
 
 	elif client.user.mentioned_in(message):
-		await message.add_reaction("<:angryping:910511211928518746>")
+		await message.add_reaction("<:blobping:910561946443604018>")
+		#await message.add_reaction("<:angryping:910511211928518746>")
 
 	#"main" function of bot
 	elif "weed" in message.content.lower():

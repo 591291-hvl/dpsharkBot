@@ -7,6 +7,8 @@ List of features/commands:
 *"!remove [number]" removes reply
 *"!count" sends reply with number of messages sendt
 *"!art" [word]" sends ascii art of word
+*Responds with angryping to @everyone ping
+*Also responds with some dumb jokes
 
 
 Goal of bot:
@@ -30,3 +32,4 @@ Database with list of response
 -play music
 -add list of commands("!help")
 -"!count" finds all channels in all servers
+-perma uptime
