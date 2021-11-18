@@ -1,5 +1,6 @@
 from replit import db
 import discord
+intents = discord.Intents(messages=True, guilds=True, members=True)
 import os
 import art
 
@@ -17,7 +18,9 @@ import countInfo
 #for x in keys:
 #    print(x + " " + str(db[x]))
 
-client = discord.Client()
+client = discord.Client(intents=intents)
+
+
 
 
 @client.event
@@ -47,7 +50,9 @@ async def on_message(message):
 	elif message.content.startswith("!remove"):
 		weeddb.remove_respons(message.content)
 	
-	#todo: move this to seperate class
+	elif "!countall" in message.content:
+		await message.channel.send("```\n" + await countInfo.get_max(client, message) + "\n```")
+
 	elif "!count" in message.content:
 		await message.reply(await countInfo.get_count(message.content[7:],client, message), mention_author=True)
 	

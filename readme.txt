@@ -6,6 +6,7 @@ List of features/commands:
 *"!all" to list all response in random(feature) order
 *"!remove [number]" removes reply
 *"!count" sends reply with number of messages sendt
+*"!countall" sends list of all users with number of messages
 *"!art" [word]" sends ascii art of word
 *Responds with angryping to @everyone ping
 *Also responds with some dumb jokes
