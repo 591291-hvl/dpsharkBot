@@ -51,7 +51,8 @@ async def on_message(message):
 		weeddb.remove_respons(message.content)
 	
 	elif "!countall" in message.content:
-		await message.channel.send("```\n" + await countInfo.get_max(client, message) + "\n```")
+		#await message.channel.send("```\n" + await countInfo.get_max(client, message) + "\n```")
+		await message.channel.send(file=await countInfo.get_max(client, message))
 
 	elif "!count" in message.content:
 		await message.reply(await countInfo.get_count(message.content[7:],client, message), mention_author=True)
