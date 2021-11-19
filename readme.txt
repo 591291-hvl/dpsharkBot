@@ -11,6 +11,10 @@ List of features/commands:
 *Responds with angryping to @everyone ping
 *Also responds with some dumb jokes
 
+Idk but i need to run these
+pip install discord.py
+pip install art==5.3
+pip install pandas
 
 Goal of bot:
 read messages sendt by users, and send response

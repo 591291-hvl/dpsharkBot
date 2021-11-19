@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import pandas as pd
 import discord
 
 async def get_count(user, client, message):
@@ -57,31 +58,55 @@ async def get_max(client, message):
 				if msg.author.id == member_list[i].id:
 					member_counter[i] += 1
 	
+	for i in range(len(member_list)):
+		member_list[i] = str(member_list[i])
 	#sort
 	#member_counter, member_list = (list(t) for t in zip(*sorted(zip(member_counter, member_list),reverse=True)))
 
-	for i in member_list:
-		print(i)
+	for i in range(len(member_list)):
+		print(member_list[i] + " " + str(member_counter[i]))
 
-	zipped_pairs = zip(member_counter, member_list)
- 
-	member_list = [x for _, x in sorted(zipped_pairs, reverse=True)]
-	member_counter = sorted(member_counter, reverse=True)
-	for i in member_list:
-		print(i)
+	index = list(range(len(member_counter)))
+
+	index.sort(key = member_counter.__getitem__,reverse=True)
+
+	member_counter[:] = [member_counter[i] for i in index]
+	member_list[:] = [member_list[i] for i in index]
+	
+	for i in range(len(member_list)):
+		print(str(member_list[i]) + " " + str(member_counter[i]))
 
 	#text version, todo: splitt into 2 methods
-	outStr = ""
-	for i in range(len(member_counter)):
-		outStr += str(member_list[i]) + ": " + str(member_counter[i]) + "\n"
+	#outStr = ""
+	#for i in range(len(member_counter)):
+	#	outStr += str(member_list[i]) + ": " + str(member_counter[i]) + "\n"
 	#return outStr	
 
 	#image version
-	plt.pie(member_counter, labels=member_list, autopct='%1.1f%%', startangle=140)
+	#v cuttoff point for 2 methods?
+	df = pd.DataFrame(data = {'Users':member_list , '% Messages' :member_counter})
+
+	if len(member_list) > 10:
+		#top users
+		df2 = df[:8].copy()
+
+		#others
+		new_row = pd.DataFrame(data = {'Users' : ['others'],'% Messages' : [df['% Messages'][8:].sum()]})
+
+		#combining top users with others
+		df2 = pd.concat([df2, new_row])
+		plt.pie(df2['% Messages'],labels=df2['Users'],autopct='%1.1f%%')
+	else:
+		plt.pie(df['% Messages'],labels=df['Users'],autopct='%1.1f%%')
+
+
+
 	
-	filename =  "image.png"
+	
+	filename =  "other/image.png"
 	plt.savefig(filename)
 	image = discord.File(filename)
+	plt.clf()
 
 	return image
 	

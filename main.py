@@ -69,7 +69,10 @@ async def on_message(message):
 	elif "this is fine" in message.content.lower():
 		await message.channel.send(file=discord.File('other/thisisfine.jpg'))
 
-	elif client.user.mentioned_in(message):
+	elif "!ping" in message.content.lower():
+		await message.channel.send(file=discord.File('other/blobping.gif'))
+
+	elif (client.user.mentioned_in(message) or "<@" in message.content):
 		await message.add_reaction("<:blobping:910561946443604018>")
 		#await message.add_reaction("<:angryping:910511211928518746>")
 
