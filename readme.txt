@@ -5,21 +5,19 @@ List of features/commands:
 *"!add [respons]" to add new reply
 *"!all" to list all response in random(feature) order
 *"!remove [number]" removes reply
-*"!count" sends reply with number of messages sendt
-*"!countall" sends list of all users with number of messages
+*"!count [@user(optional)]" sends reply with number of messages sendt
+*"!counttxt" sends list of all users with number of messages
+*"!countimg" sends pichart og % messages sendt by each user
 *"!art" [word]" sends ascii art of word
-*Responds with angryping to @everyone ping
+*Responds with angryping to all pings
 *Also responds with some dumb jokes
 
-Idk but i need to run these
-pip install discord.py
-pip install art==5.3
-pip install pandas
 
 Goal of bot:
-read messages sendt by users, and send response
+read messages sendt by users, and send response + some other things
 
 Todo:
+Move everything to slash commands :(
 Database with list of response
 -Add general purpose use, non weed response
 -Structure database for general purpose
@@ -33,8 +31,6 @@ Database with list of response
 -send ascii art
 --fix length
 -send dm's
--find number of messages send by user
 -play music
 -add list of commands("!help")
--"!count" finds all channels in all servers
 -perma uptime

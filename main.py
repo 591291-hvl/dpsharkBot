@@ -3,11 +3,17 @@ import discord
 intents = discord.Intents(messages=True, guilds=True, members=True)
 import os
 import art
+from random import randint
 
 import weeddb
 import countInfo
+#import manualAdd
+
+
 
 #Should always be commented out
+#manualAdd.remove_all()
+#manualAdd.add_all()
 #db["nrWeedRespons"] = 0
 #nrWeed = db["nrWeedRespons"]
 #print(str(nrWeed) + " nr of responses")
@@ -21,8 +27,6 @@ import countInfo
 client = discord.Client(intents=intents)
 
 
-
-
 @client.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
@@ -34,21 +38,20 @@ async def on_message(message):
 		return
 
 	if message.content.startswith("!add"):
-		weeddb.add_respons(message.content)
+		await message.channel.send(weeddb.add_respons(message.content[5:]))
+		
+
+	elif message.content.startswith("!remove"):
+		await message.channel.send(weeddb.remove_respons(message.content[8:]))
 		
 	elif "!all" in message.content:
 		#add to method
-		keys = db.keys()
+		numberOfKeys = db["nrWeedRespons"]
 		strOut = ""
-		for x in keys:
-			if (x.isdigit()):
-				print(x)
-				strOut += (x + " " + str(db[x]) + "\n")
-		await message.channel.send(strOut)
-	
-
-	elif message.content.startswith("!remove"):
-		weeddb.remove_respons(message.content)
+		for x in range(numberOfKeys):
+			print(str(x))
+			strOut += (str(x) + " " + str(db[str(x)]) + "\n")
+		await message.channel.send("```\n" + strOut + "\n```")
 	
 	elif "!counttxt" in message.content:
 		await message.channel.send("```\n" + await countInfo.get_txt(client, message) + "\n```")
@@ -67,6 +70,14 @@ async def on_message(message):
 
 	elif message.content.lower().startswith("jeg er"):
 		await message.channel.send("Hei " + message.content[7:] + ", jeg er dpsharkBot")
+
+	elif "!sleep" in message.content.lower():
+		value = randint(0, 1)
+		if value == 0:
+			await message.channel.send(file=discord.File('other/sleep.jpg'))
+		else:
+			await message.channel.send(file=discord.File('other/sleep1.jpg'))
+		
 
 	elif "this is fine" in message.content.lower():
 		await message.channel.send(file=discord.File('other/thisisfine.jpg'))
