@@ -50,9 +50,11 @@ async def on_message(message):
 	elif message.content.startswith("!remove"):
 		weeddb.remove_respons(message.content)
 	
-	elif "!countall" in message.content:
-		#await message.channel.send("```\n" + await countInfo.get_max(client, message) + "\n```")
-		await message.channel.send(file=await countInfo.get_max(client, message))
+	elif "!counttxt" in message.content:
+		await message.channel.send("```\n" + await countInfo.get_txt(client, message) + "\n```")
+
+	elif "!countimg" in message.content:
+		await message.channel.send(file=await countInfo.get_img(client, message))
 
 	elif "!count" in message.content:
 		await message.reply(await countInfo.get_count(message.content[7:],client, message), mention_author=True)

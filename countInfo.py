@@ -2,36 +2,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import discord
 
-async def get_count(user, client, message):
-	counter = 0
-
-	text_channel_list = []
-	server = message.guild.id
-	for guild in client.guilds:
-		if guild.id == server:
-			for channel in guild.text_channels:
-				if str(channel.type) == 'text':
-					text_channel_list.append(channel)
-	
-	userID = 0
-	if not user:
-		userID = message.author.id
-	else:
-		user = user.replace("<","")
-		user = user.replace(">","")
-		user = user.replace("@","")
-		user = user.replace("!","")
-		user = user.replace(" ","")
-		userID = user
-	
-	for txtChannel in text_channel_list:
-		async for msg in txtChannel.history(limit=10000):
-			if msg.author.id == int(userID):
-				counter += 1
-	return counter
-
-async def get_max(client, message):
-
+#returns table of users and number of messages sendt
+async def get_table(client, message):
 	#get all text channels in server
 	text_channel_list = []
 	server = message.guild.id
@@ -60,30 +32,35 @@ async def get_max(client, message):
 	
 	for i in range(len(member_list)):
 		member_list[i] = str(member_list[i])
+	
 	#sort
-	#member_counter, member_list = (list(t) for t in zip(*sorted(zip(member_counter, member_list),reverse=True)))
-
-	for i in range(len(member_list)):
-		print(member_list[i] + " " + str(member_counter[i]))
-
 	index = list(range(len(member_counter)))
 
 	index.sort(key = member_counter.__getitem__,reverse=True)
 
 	member_counter[:] = [member_counter[i] for i in index]
 	member_list[:] = [member_list[i] for i in index]
+
 	
-	for i in range(len(member_list)):
-		print(str(member_list[i]) + " " + str(member_counter[i]))
+	return member_list, member_counter
+
+
+
+#returns string of users: number of messages
+async def get_txt(client, message):
+	member_list, member_counter = await get_table(client, message)
 
 	#text version, todo: splitt into 2 methods
-	#outStr = ""
-	#for i in range(len(member_counter)):
-	#	outStr += str(member_list[i]) + ": " + str(member_counter[i]) + "\n"
-	#return outStr	
+	outStr = ""
+	for i in range(len(member_counter)):
+		outStr += str(member_list[i]) + ": " + str(member_counter[i]) + "\n"
+	return outStr	
 
-	#image version
-	#v cuttoff point for 2 methods?
+#returns piechart of users: %of messages
+async def get_img(client, message):
+
+	member_list, member_counter = await get_table(client, message)
+
 	df = pd.DataFrame(data = {'Users':member_list , '% Messages' :member_counter})
 
 	if len(member_list) > 10:
@@ -99,14 +76,39 @@ async def get_max(client, message):
 	else:
 		plt.pie(df['% Messages'],labels=df['Users'],autopct='%1.1f%%')
 
-
-
-	
-	
 	filename =  "other/image.png"
 	plt.savefig(filename)
 	image = discord.File(filename)
 	plt.clf()
 
 	return image
+
+#Returns number of messages sendt, @user optional
+async def get_count(user, client, message):
+	counter = 0
+
+	text_channel_list = []
+	server = message.guild.id
+	for guild in client.guilds:
+		if guild.id == server:
+			for channel in guild.text_channels:
+				if str(channel.type) == 'text':
+					text_channel_list.append(channel)
+	
+	userID = 0
+	if not user:
+		userID = message.author.id
+	else:
+		user = user.replace("<","")
+		user = user.replace(">","")
+		user = user.replace("@","")
+		user = user.replace("!","")
+		user = user.replace(" ","")
+		userID = user
+	
+	for txtChannel in text_channel_list:
+		async for msg in txtChannel.history(limit=10000):
+			if msg.author.id == int(userID):
+				counter += 1
+	return counter
 	
