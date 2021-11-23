@@ -19,6 +19,7 @@ read messages sendt by users, and send response + some other things
 Todo:
 Move everything to slash commands :(
 Database with list of response
+-Add reaction emoji so emoji id is not fucked
 -Add general purpose use, non weed response
 -Structure database for general purpose
 -Check if user is mod for add/remove

@@ -89,6 +89,9 @@ async def on_message(message):
 		await message.add_reaction("<:blobping:910561946443604018>")
 		#await message.add_reaction("<:angryping:910511211928518746>")
 
+	elif "cock" in message.content.lower():
+		await message.reply(file=discord.File('other/YEP.png'))
+
 	#"main" function of bot
 	elif "weed" in message.content.lower():
 		await message.channel.send(weeddb.print_respons())
