@@ -91,6 +91,9 @@ async def on_message(message):
 
 	elif "cock" in message.content.lower():
 		await message.reply(file=discord.File('other/YEP.png'))
+	
+	elif message.content.startswith("!thonk"):
+		await message.reply(file=discord.File('other/ThonkSpin.gif'))
 
 	#"main" function of bot
 	elif "weed" in message.content.lower():
