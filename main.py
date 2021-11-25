@@ -37,11 +37,11 @@ async def on_message(message):
 	if message.author == client.user:
 		return
 
-	if message.content.startswith("!add"):
+	if message.content.startswith("!add") and message.author.id == 223112835671130112:
 		await message.channel.send(weeddb.add_respons(message.content[5:]))
 		
 
-	elif message.content.startswith("!remove"):
+	elif message.content.startswith("!remove") and message.author.id == 223112835671130112:
 		await message.channel.send(weeddb.remove_respons(message.content[8:]))
 		
 	elif "!all" in message.content:
