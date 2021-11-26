@@ -7,6 +7,7 @@ from random import randint
 
 import weeddb
 import countInfo
+
 #import manualAdd
 
 
@@ -52,6 +53,26 @@ async def on_message(message):
 			print(str(x))
 			strOut += (str(x) + " " + str(db[str(x)]) + "\n")
 		await message.channel.send("```\n" + strOut + "\n```")
+	
+	#webhooks
+	elif message.content.startswith("!send"):
+		txt = message.content.split()
+		user = " ".join(txt[1:2])
+		user = user.replace("<","")
+		user = user.replace(">","")
+		user = user.replace("@","")
+		user = user.replace("!","")
+		newMember = client.get_user(int(user))
+		listToStr = " ".join(txt[2:])
+
+		
+		webhook = await message.channel.create_webhook(name=newMember.name)
+		await webhook.send(listToStr, username=newMember.name,avatar_url=newMember.avatar_url)
+		webhooks = await message.channel.webhooks()
+		for webhook in webhooks:
+			#print("test1")
+			await webhook.delete()
+	
 	
 	elif "!counttxt" in message.content:
 		await message.channel.send("```\n" + await countInfo.get_txt(client, message) + "\n```")
