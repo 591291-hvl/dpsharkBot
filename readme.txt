@@ -11,6 +11,7 @@ List of features/commands:
 *"!art" [word]" sends ascii art of word
 *Responds with angryping to all pings
 *Also responds with some dumb jokes
+*!send @user words to be send "from" user
 
 
 Goal of bot:
