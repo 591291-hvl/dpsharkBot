@@ -12,6 +12,8 @@ List of features/commands:
 *Responds with angryping to all pings
 *Also responds with some dumb jokes
 *!send @user words to be send "from" user
+*"!sleep" to tell your friends to go to sleep 
+*bot typing indicator for long process time
 
 
 Goal of bot:
@@ -25,8 +27,8 @@ Database with list of response
 -Structure database for general purpose
 -Check if user is mod for add/remove
 -fix for longer list of responses
---Downloadable .txt file
---Message to user asked(nondownloadable)
+--Downloadable .txt file?
+--Message to user asked(nondownloadable)?
 -Add new keywords
 -Add new list of responses to keyword
 --Database with responses? relationdatabase??
@@ -35,4 +37,7 @@ Database with list of response
 -send dm's
 -play music
 -add list of commands("!help")
--perma uptime
+-Bot starts typing whenever someone is typing?
+-Add description to bot
+-Send discord nitro emojies for users
+-clean up main, comments
