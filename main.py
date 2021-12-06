@@ -39,76 +39,76 @@ async def on_ready():
 async def on_message(message):
 	if message.author == client.user:
 		return
+	async with message.channel.typing():
+		if message.content.startswith("!add") and message.author.id == 223112835671130112:
+			await message.channel.send(weeddb.add_respons(message.content[5:]))
+			
 
-	if message.content.startswith("!add") and message.author.id == 223112835671130112:
-		await message.channel.send(weeddb.add_respons(message.content[5:]))
+		elif message.content.startswith("!remove") and message.author.id == 223112835671130112:
+			await message.channel.send(weeddb.remove_respons(message.content[8:]))
+			
+		elif "!all" in message.content:
+			#add to method
+			numberOfKeys = db["nrWeedRespons"]
+			strOut = ""
+			for x in range(numberOfKeys):
+				print(str(x))
+				strOut += (str(x) + " " + str(db[str(x)]) + "\n")
+			await message.channel.send("```\n" + strOut + "\n```")
 		
-
-	elif message.content.startswith("!remove") and message.author.id == 223112835671130112:
-		await message.channel.send(weeddb.remove_respons(message.content[8:]))
+		#webhooks
+		elif message.content.startswith("!send"):
+			await webhook.sendMsg(message, client)
 		
-	elif "!all" in message.content:
-		#add to method
-		numberOfKeys = db["nrWeedRespons"]
-		strOut = ""
-		for x in range(numberOfKeys):
-			print(str(x))
-			strOut += (str(x) + " " + str(db[str(x)]) + "\n")
-		await message.channel.send("```\n" + strOut + "\n```")
-	
-	#webhooks
-	elif message.content.startswith("!send"):
-		await webhook.sendMsg(message, client)
-	
-	
-	elif "!counttxt" in message.content:
-		await message.channel.send("```\n" + await countInfo.get_txt(client, message) + "\n```")
+		
+		elif "!counttxt" in message.content:
+			await message.channel.send("```\n" + await countInfo.get_txt(client, message) + "\n```")
 
-	elif "!countimg" in message.content:
-		await message.channel.send(file=await countInfo.get_img(client, message))
+		elif "!countimg" in message.content:
+			await message.channel.send(file=await countInfo.get_img(client, message))
 
-	elif "!count" in message.content:
-		await message.reply(await countInfo.get_count(message.content[7:],client, message), mention_author=True)
-	
-	elif "!art" in message.content:
-		await message.channel.send("```\n" + art.text2art(message.content[5:]) + "\n```")
+		elif "!count" in message.content:
+			await message.reply(await countInfo.get_count(message.content[7:],client, message), mention_author=True)
+		
+		elif "!art" in message.content:
+			await message.channel.send("```\n" + art.text2art(message.content[5:]) + "\n```")
 
-	elif "!github" in message.content:
-		await message.channel.send("https://github.com/591291-hvl/dpsharkBot")
+		elif "!github" in message.content:
+			await message.channel.send("https://github.com/591291-hvl/dpsharkBot")
 
-	elif message.content.lower().startswith("jeg er"):
-		await message.channel.send("Hei " + message.content[7:] + ", jeg er dpsharkBot")
+		elif message.content.lower().startswith("jeg er"):
+			await message.channel.send("Hei " + message.content[7:] + ", jeg er dpsharkBot")
 
-	elif "!sleep" in message.content.lower():
-		value = randint(0, 1)
-		if value == 0:
-			await message.channel.send(file=discord.File('other/sleep.jpg'))
+		elif "!sleep" in message.content.lower():
+			value = randint(0, 1)
+			if value == 0:
+				await message.channel.send(file=discord.File('other/sleep.jpg'))
+			else:
+				await message.channel.send(file=discord.File('other/sleep1.jpg'))
+			
+
+		elif "this is fine" in message.content.lower():
+			await message.channel.send(file=discord.File('other/thisisfine.jpg'))
+
+		elif "!ping" in message.content.lower():
+			await message.channel.send(file=discord.File('other/blobping.gif'))
+
+		elif (client.user.mentioned_in(message) or "<@" in message.content):
+			await message.add_reaction("<:blobping:910561946443604018>")
+			#await message.add_reaction("<:angryping:910511211928518746>")
+
+		elif "cock" in message.content.lower():
+			await message.reply(file=discord.File('other/YEP.png'))
+		
+		elif message.content.startswith("!thonk"):
+			await message.reply(file=discord.File('other/ThonkSpin.gif'))
+
+		#"main" function of bot
+		elif "weed" in message.content.lower():
+			await message.channel.send(weeddb.print_respons())
+
 		else:
-			await message.channel.send(file=discord.File('other/sleep1.jpg'))
-		
-
-	elif "this is fine" in message.content.lower():
-		await message.channel.send(file=discord.File('other/thisisfine.jpg'))
-
-	elif "!ping" in message.content.lower():
-		await message.channel.send(file=discord.File('other/blobping.gif'))
-
-	elif (client.user.mentioned_in(message) or "<@" in message.content):
-		await message.add_reaction("<:blobping:910561946443604018>")
-		#await message.add_reaction("<:angryping:910511211928518746>")
-
-	elif "cock" in message.content.lower():
-		await message.reply(file=discord.File('other/YEP.png'))
-	
-	elif message.content.startswith("!thonk"):
-		await message.reply(file=discord.File('other/ThonkSpin.gif'))
-
-	#"main" function of bot
-	elif "weed" in message.content.lower():
-		await message.channel.send(weeddb.print_respons())
-
-	else:
-		print("Nothing")
+			print("Nothing")
 
 
 #Functions, to be added to another class
