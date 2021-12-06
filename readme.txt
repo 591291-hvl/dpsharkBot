@@ -14,6 +14,7 @@ List of features/commands:
 *!send @user words to be send "from" user
 *"!sleep" to tell your friends to go to sleep 
 *bot typing indicator for long process time
+*"!d[number]" to roll a dice of size number
 
 
 Goal of bot:

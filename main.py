@@ -103,6 +103,11 @@ async def on_message(message):
 		elif message.content.startswith("!thonk"):
 			await message.reply(file=discord.File('other/ThonkSpin.gif'))
 
+		elif message.content.startswith("!d"):
+			number = message.content[2:]
+			value = randint(1,int(number))
+			await message.reply("Rolled d" + str(number) + ": " + str(value))
+
 		#"main" function of bot
 		elif "weed" in message.content.lower():
 			await message.channel.send(weeddb.print_respons())
