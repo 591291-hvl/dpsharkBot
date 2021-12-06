@@ -5,6 +5,7 @@ import os
 import art
 from random import randint
 
+from keepAlive import keepAlive
 import weeddb
 import countInfo
 import webhook
@@ -112,4 +113,6 @@ async def on_message(message):
 
 #Functions, to be added to another class
 
+
+keepAlive()
 client.run(os.environ['TOKEN'])
