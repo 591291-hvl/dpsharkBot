@@ -63,18 +63,30 @@ async def get_img(client, message):
 
 	df = pd.DataFrame(data = {'Users':member_list , '% Messages' :member_counter})
 
-	if len(member_list) > 10:
-		#top users
-		df2 = df[:8].copy()
+	#new version
+	
+	#% cut off point for pie chart
+	cutOffPoint = 3
+	#max nr of messages
+	maxMessages = df['% Messages'].sum()
+	for i in range(len(member_counter)):
+		if (member_counter[i]/maxMessages) < (cutOffPoint/100):
+			cutOffPoint = i
+			break
+	
+	#top users
+	df2 = df[:cutOffPoint].copy()
 
-		#others
-		new_row = pd.DataFrame(data = {'Users' : ['others'],'% Messages' : [df['% Messages'][8:].sum()]})
+	#others
+	new_row = pd.DataFrame(data = {'Users' : ['others'],'% Messages' : [df['% Messages'][cutOffPoint:].sum()]})
 
-		#combining top users with others
-		df2 = pd.concat([df2, new_row])
-		plt.pie(df2['% Messages'],labels=df2['Users'],autopct='%1.1f%%')
-	else:
-		plt.pie(df['% Messages'],labels=df['Users'],autopct='%1.1f%%')
+	#combining top users with others
+	df2 = pd.concat([df2, new_row])
+	plt.pie(df2['% Messages'],labels=df2['Users'],autopct='%1.1f%%')
+
+
+	###########
+
 
 	filename =  "other/image.png"
 	plt.savefig(filename)
