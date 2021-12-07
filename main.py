@@ -108,8 +108,12 @@ async def on_message(message):
 
 	elif (client.user.mentioned_in(message) or "<@" in message.content):
 		async with message.channel.typing():
-			await message.add_reaction("<:blobping:910561946443604018>")
+			await message.add_reaction("<:blobping:917804967350399059>")
 			#await message.add_reaction("<:angryping:910511211928518746>")
+
+	elif "pog" in message.content.lower():
+		async with message.channel.typing():
+			await message.add_reaction("<:pog:917817711982182570")
 
 	elif "cock" in message.content.lower():
 		async with message.channel.typing():
