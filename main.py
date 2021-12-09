@@ -5,7 +5,9 @@ import os
 import art
 from random import randint
 
+
 from keepAlive import keepAlive
+import helpCommands
 import weeddb
 import countInfo
 import webhook
@@ -59,6 +61,10 @@ async def on_message(message):
 				strOut += (str(x) + " " + str(db[str(x)]) + "\n")
 			await message.channel.send("```\n" + strOut + "\n```")
 	
+	elif message.content.startswith("!help"):
+		async with message.channel.typing():
+			await message.channel.send(helpCommands.printTxt())
+
 	#webhooks
 	elif message.content.startswith("!send"):
 		async with message.channel.typing():
