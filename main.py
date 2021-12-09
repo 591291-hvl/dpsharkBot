@@ -7,7 +7,6 @@ from random import randint
 
 
 from keepAlive import keepAlive
-import helpCommands
 import weeddb
 import countInfo
 import webhook
@@ -63,7 +62,7 @@ async def on_message(message):
 	
 	elif message.content.startswith("!help"):
 		async with message.channel.typing():
-			await message.channel.send(helpCommands.printTxt())
+			await message.channel.send(file=discord.File("readme.md"))
 
 	#webhooks
 	elif message.content.startswith("!send"):
