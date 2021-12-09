@@ -62,7 +62,7 @@ async def on_message(message):
 	
 	elif message.content.startswith("!help"):
 		async with message.channel.typing():
-			await message.channel.send(file=discord.File("readme.md"))
+			await message.channel.send(file=discord.File("commands.md"))
 
 	#webhooks
 	elif message.content.startswith("!send"):
