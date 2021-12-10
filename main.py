@@ -30,10 +30,12 @@ import webhook
 
 client = discord.Client(intents=intents)
 
+activity = discord.Game(name="!help for list of commands")
+client.change_presence(status=discord.Status.online, activity=activity)
 
 @client.event
 async def on_ready():
-    print('We have logged in as {0.user}'.format(client))
+	print('We have logged in as {0.user}'.format(client))
 
 #Text responses
 @client.event
