@@ -3,6 +3,8 @@
 ## List of features/commands:
 ----------------------------
 
+### [keyword] responses tools
+
 >**!add [respons]**     
 >   Adds new response to [keyword]   
 
@@ -12,17 +14,41 @@
 >**!all**       
 >   Lists all responses to [keyword]
 
+----
+
+### Number of messages
+
 >**!count [@user(optional)]**      
 >   Sends number of messages sendt by @user, or yourself
 
->**!counttxt**  
+>**!countAll**      
+>   Sends total number of messages sendt 
+
+>**!countTxt**  
 >   Sends list of number of messages per user    
 
->**!countimg**   
+>**!countImg**   
 >   Sends piechart of % messages sendt by each user     
+
+----
+
+### Number of words
 
 >**!wordCount [@user(optional)]**   
 >   Sends number of words sendt by @user, or yourself
+
+>**!wordCountAll**      
+>   Sends total number of words sendt 
+
+>**!wordCountTxt**  
+>   Sends list of number of words per user    
+
+>**!wordCountImg**   
+>   Sends piechart of % words sendt by each user 
+
+----
+
+### Other
 
 >**!art" [word]**   
 >   Sends ascii art of [word]

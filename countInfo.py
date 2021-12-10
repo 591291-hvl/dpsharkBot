@@ -48,7 +48,47 @@ async def get_table(client, message):
 	
 	return member_list, member_counter
 
+#returns table of users and number of words sendt
+async def get_tableWords(client, message):
+	#get all text channels in server
+	text_channel_list = []
+	server = message.guild.id
+	for guild in client.guilds:
+		if guild.id == server:
+			for channel in guild.text_channels:
+				if str(channel.type) == 'text':
+					text_channel_list.append(channel)
+	
+	#get all members in server
+	member_list = []
+	for guild in client.guilds:
+		if guild.id == server:
+			for member in guild.members:
+				member_list.append(member)
+	#list for counting
+	member_counter = []
+	for x in member_list:
+		member_counter.append(0)
+	#count through messages
+	for txtChannel in text_channel_list:
+		async for msg in txtChannel.history(limit=10000):
+			for i in range(len(member_list)):
+				if msg.author.id == member_list[i].id:
+					member_counter[i] += len(" ".join(msg.content.split()).split(" "))
+	
+	for i in range(len(member_list)):
+		member_list[i] = str(member_list[i])
+	
+	#sort
+	index = list(range(len(member_counter)))
 
+	index.sort(key = member_counter.__getitem__,reverse=True)
+
+	member_counter[:] = [member_counter[i] for i in index]
+	member_list[:] = [member_list[i] for i in index]
+
+	
+	return member_list, member_counter
 
 #returns string of users: number of messages
 async def get_txt(client, message):
@@ -127,6 +167,89 @@ async def get_count(user, client, message):
 			if msg.author.id == int(userID):
 				counter += 1
 	return "Number of messages: " + str(counter)
+
+#Returns total number of messages sendt in server
+async def get_countAll(client,message):
+	counter = 0
+
+	text_channel_list = []
+	server = message.guild.id
+	for guild in client.guilds:
+		if guild.id == server:
+			for channel in guild.text_channels:
+				if str(channel.type) == 'text':
+					text_channel_list.append(channel)
+	
+	for txtChannel in text_channel_list:
+		async for msg in txtChannel.history(limit=10000):
+			counter += 1
+
+	return "Total number of messages: " + str(counter)
+
+#returns string of users: number of words
+async def get_wordTxt(client, message):
+	member_list, member_counter = await get_tableWords(client, message)
+
+	outStr = ""
+	for i in range(len(member_counter)):
+		outStr += str(member_list[i]) + ": " + str(member_counter[i]) + "\n"
+	return outStr	
+
+#returns piechart of users: %of messages
+async def get_wordImg(client, message):
+	member_list, member_counter = await get_tableWords(client, message)
+
+	df = pd.DataFrame(data = {'Users':member_list , '% Words' :member_counter})
+
+	#new version
+	
+	#% cut off point for pie chart
+	cutOffPoint = 3
+	#max nr of messages
+	maxWords = df['% Words'].sum()
+	for i in range(len(member_counter)):
+		if (member_counter[i]/maxWords) < (cutOffPoint/100):
+			cutOffPoint = i
+			break
+	
+	#top users
+	df2 = df[:cutOffPoint].copy()
+
+	#others
+	new_row = pd.DataFrame(data = {'Users' : ['others'],'% Words' : [df['% Words'][cutOffPoint:].sum()]})
+
+	#combining top users with others
+	df2 = pd.concat([df2, new_row])
+	plt.pie(df2['% Words'],labels=df2['Users'],autopct='%1.1f%%')
+
+
+	###########
+
+
+	filename =  "other/image.png"
+	plt.savefig(filename)
+	image = discord.File(filename)
+	plt.clf()
+
+	return image
+
+#Returns total number of words sendt in server
+async def get_wordCountAll(client,message):
+	counter = 0
+
+	text_channel_list = []
+	server = message.guild.id
+	for guild in client.guilds:
+		if guild.id == server:
+			for channel in guild.text_channels:
+				if str(channel.type) == 'text':
+					text_channel_list.append(channel)
+	
+	for txtChannel in text_channel_list:
+		async for msg in txtChannel.history(limit=10000):
+			counter += len(" ".join(msg.content.split()).split(" "))
+
+	return "Total number of words: " + str(counter)
 
 #Returns number of words sendt, @user optional
 async def get_wordCount(user, client, message):

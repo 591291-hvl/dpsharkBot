@@ -41,12 +41,12 @@ async def on_message(message):
 	if message.author == client.user:
 		return
 	
-	if message.content.startswith("!add") and message.author.id == 223112835671130112:
+	if message.content.lower().startswith("!add") and message.author.id == 223112835671130112:
 		async with message.channel.typing():
 			await message.channel.send(weeddb.add_respons(message.content[5:]))
 		
 
-	elif message.content.startswith("!remove") and message.author.id == 223112835671130112:
+	elif message.content.lower().startswith("!remove") and message.author.id == 223112835671130112:
 		async with message.channel.typing():
 			await message.channel.send(weeddb.remove_respons(message.content[8:]))
 		
@@ -60,38 +60,54 @@ async def on_message(message):
 				strOut += (str(x) + " " + str(db[str(x)]) + "\n")
 			await message.channel.send("```\n" + strOut + "\n```")
 	
-	elif message.content.startswith("!help"):
+	elif message.content.lower().startswith("!help"):
 		async with message.channel.typing():
 			await message.channel.send(file=discord.File("commands.md"))
 
 	#webhooks
-	elif message.content.startswith("!send"):
+	elif message.content.lower().startswith("!send"):
 		async with message.channel.typing():
 			await webhook.sendMsg(message, client)
 	
 	
-	elif message.content.startswith("!counttxt"):
+	elif message.content.lower().startswith("!counttxt"):
 		async with message.channel.typing():
 			await message.channel.send("```\n" + await countInfo.get_txt(client, message) + "\n```")
 
-	elif message.content.startswith("!countimg"):
+	elif message.content.lower().startswith("!countimg"):
 		async with message.channel.typing():
 			await message.channel.send(file=await countInfo.get_img(client, message))
 
-	elif message.content.startswith("!count"):
+	elif message.content.lower().startswith("!countall"):
+		async with message.channel.typing():
+			await message.reply(await countInfo.get_countAll(client,message), mention_author=True)
+
+	elif message.content.lower().startswith("!count"):
 		async with message.channel.typing():
 			await message.reply(await countInfo.get_count(message.content[7:],client, message), mention_author=True)
 	
-	elif message.content.startswith("!wordCount"):
+	elif message.content.lower().startswith("!wordcounttxt"):
+		async with message.channel.typing():
+			await message.channel.send("```\n" + await countInfo.get_wordTxt(client, message) + "\n```")
+
+	elif message.content.lower().startswith("!wordcountimg"):
+		async with message.channel.typing():
+			await message.channel.send(file=await countInfo.get_wordImg(client, message))
+
+	elif message.content.lower().startswith("!wordcountall"):
+		async with message.channel.typing():
+			await message.reply(await countInfo.get_wordCountAll(client,message), mention_author=True)
+
+	elif message.content.lower().startswith("!wordcount"):
 		async with message.channel.typing():
 			await message.reply(await countInfo.get_wordCount(message.content[11:],client, message),mention_author=True)
+	
 
-
-	elif message.content.startswith("!art"):
+	elif message.content.lower().startswith("!art"):
 		async with message.channel.typing():
 			await message.channel.send("```\n" + art.text2art(message.content[5:]) + "\n```")
 
-	elif message.content.startswith("!github"):
+	elif message.content.lower().startswith("!github"):
 		async with message.channel.typing():
 			await message.channel.send("https://github.com/591291-hvl/dpsharkBot")
 
@@ -133,7 +149,7 @@ async def on_message(message):
 		async with message.channel.typing():
 			await message.reply(file=discord.File('other/ThonkSpin.gif'))
 
-	elif message.content.startswith("!d"):
+	elif message.content.lower().startswith("!d"):
 		async with message.channel.typing():
 			number = message.content[2:]
 			value = randint(1,int(number))
