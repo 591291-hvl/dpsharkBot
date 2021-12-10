@@ -70,23 +70,28 @@ async def on_message(message):
 			await webhook.sendMsg(message, client)
 	
 	
-	elif "!counttxt" in message.content:
+	elif message.content.startswith("!counttxt"):
 		async with message.channel.typing():
 			await message.channel.send("```\n" + await countInfo.get_txt(client, message) + "\n```")
 
-	elif "!countimg" in message.content:
+	elif message.content.startswith("!countimg"):
 		async with message.channel.typing():
 			await message.channel.send(file=await countInfo.get_img(client, message))
 
-	elif "!count" in message.content:
+	elif message.content.startswith("!count"):
 		async with message.channel.typing():
 			await message.reply(await countInfo.get_count(message.content[7:],client, message), mention_author=True)
 	
-	elif "!art" in message.content:
+	elif message.content.startswith("!wordCount"):
+		async with message.channel.typing():
+			await message.reply(await countInfo.get_wordCount(message.content[11:],client, message),mention_author=True)
+
+
+	elif message.content.startswith("!art"):
 		async with message.channel.typing():
 			await message.channel.send("```\n" + art.text2art(message.content[5:]) + "\n```")
 
-	elif "!github" in message.content:
+	elif message.content.startswith("!github"):
 		async with message.channel.typing():
 			await message.channel.send("https://github.com/591291-hvl/dpsharkBot")
 
@@ -94,7 +99,7 @@ async def on_message(message):
 		async with message.channel.typing():
 			await message.channel.send("Hei " + message.content[7:] + ", jeg er dpsharkBot")
 
-	elif "!sleep" in message.content.lower():
+	elif message.content.startswith("!sleep"):
 		async with message.channel.typing():
 			value = randint(0, 1)
 			if value == 0:
@@ -135,7 +140,7 @@ async def on_message(message):
 			await message.reply("Rolled d" + str(number) + ": " + str(value))
 
 	#"main" function of bot
-	elif "weed" in message.content.lower():
+	elif "weed" in message.content.lower().replace(" ",""):
 		async with message.channel.typing():
 			await message.channel.send(weeddb.print_respons())
 

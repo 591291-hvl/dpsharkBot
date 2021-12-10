@@ -21,6 +21,9 @@
 >**!countimg**   
 >   Sends piechart of % messages sendt by each user     
 
+>**!wordCount [@user(optional)]**	
+>	Sends number of words sendt by @user, or yourself
+
 >**!art" [word]**   
 >   Sends ascii art of [word]
 

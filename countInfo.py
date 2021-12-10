@@ -2,6 +2,10 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import discord
 
+#todo
+#I really really need to reduce number of lines by reusing methods
+
+
 #returns table of users and number of messages sendt
 async def get_table(client, message):
 	#get all text channels in server
@@ -122,5 +126,34 @@ async def get_count(user, client, message):
 		async for msg in txtChannel.history(limit=10000):
 			if msg.author.id == int(userID):
 				counter += 1
-	return counter
+	return "Number of messages: " + str(counter)
+
+#Returns number of words sendt, @user optional
+async def get_wordCount(user, client, message):
+	counter = 0
+
+	text_channel_list = []
+	server = message.guild.id
+	for guild in client.guilds:
+		if guild.id == server:
+			for channel in guild.text_channels:
+				if str(channel.type) == 'text':
+					text_channel_list.append(channel)
 	
+	userID = 0
+	if not user:
+		userID = message.author.id
+	else:
+		user = user.replace("<","")
+		user = user.replace(">","")
+		user = user.replace("@","")
+		user = user.replace("!","")
+		user = user.replace(" ","")
+		userID = user
+	
+	for txtChannel in text_channel_list:
+		async for msg in txtChannel.history(limit=10000):
+			if msg.author.id == int(userID):
+				wordsInMessage = " ".join(msg.content.split()).split(" ")
+				counter += len(wordsInMessage)
+	return "Number of words: " + str(counter)
