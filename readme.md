@@ -83,7 +83,8 @@ Read messages sendt by users, and send response + some other things
 
 ### Todo:
 Move everything to slash commands :(    
-Database with list of response      
+Database with list of response    
+-Dont count images as words sendt  
 -Add general purpose use, non weed response(not very serious)   
 -Use serverid as a key for custom responses per server    
 -Structure database for general purpose     

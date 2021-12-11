@@ -90,6 +90,29 @@ async def get_tableWords(client, message):
 	
 	return member_list, member_counter
 
+#return number of words sendt by [@user(optional)]
+async def get_wordchannel(user, client, message):
+	counter = 0
+
+	text_channel = message.channel
+	
+	userID = 0
+	if not user:
+		userID = message.author.id
+	else:
+		user = user.replace("<","")
+		user = user.replace(">","")
+		user = user.replace("@","")
+		user = user.replace("!","")
+		user = user.replace(" ","")
+		userID = user
+	
+	async for msg in text_channel.history(limit=10000):
+		if msg.author.id == int(userID):
+			counter += len(" ".join(msg.content.split()).split(" "))
+	return "Number of messages: " + str(counter)
+
+
 #returns string of users: number of messages
 async def get_txt(client, message):
 	member_list, member_counter = await get_table(client, message)
@@ -148,7 +171,7 @@ async def get_count(user, client, message):
 	for guild in client.guilds:
 		if guild.id == server:
 			for channel in guild.text_channels:
-				if str(channel.type) == 'text':
+				if str(channel.type) == 'text' and (channel.permissions_for(guild.me).send_messages):
 					text_channel_list.append(channel)
 	
 	userID = 0
@@ -177,7 +200,7 @@ async def get_countAll(client,message):
 	for guild in client.guilds:
 		if guild.id == server:
 			for channel in guild.text_channels:
-				if str(channel.type) == 'text':
+				if str(channel.type) == 'text' and (channel.permissions_for(guild.me).send_messages):
 					text_channel_list.append(channel)
 	
 	for txtChannel in text_channel_list:
@@ -242,7 +265,7 @@ async def get_wordCountAll(client,message):
 	for guild in client.guilds:
 		if guild.id == server:
 			for channel in guild.text_channels:
-				if str(channel.type) == 'text':
+				if str(channel.type) == 'text' and (channel.permissions_for(guild.me).send_messages):
 					text_channel_list.append(channel)
 	
 	for txtChannel in text_channel_list:
@@ -260,7 +283,7 @@ async def get_wordCount(user, client, message):
 	for guild in client.guilds:
 		if guild.id == server:
 			for channel in guild.text_channels:
-				if str(channel.type) == 'text':
+				if str(channel.type) == 'text' and (channel.permissions_for(guild.me).send_messages):
 					text_channel_list.append(channel)
 	
 	userID = 0

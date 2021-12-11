@@ -88,6 +88,10 @@ async def on_message(message):
 		async with message.channel.typing():
 			await message.reply(await countInfo.get_count(message.content[7:],client, message), mention_author=True)
 	
+	elif message.content.lower().startswith("!wordcountchannel"):
+		async with message.channel.typing():
+			await message.reply(await countInfo.get_wordchannel(message.content[18:],client, message), mention_author=True)
+
 	elif message.content.lower().startswith("!wordcounttxt"):
 		async with message.channel.typing():
 			await message.channel.send("```\n" + await countInfo.get_wordTxt(client, message) + "\n```")
