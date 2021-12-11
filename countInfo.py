@@ -14,7 +14,7 @@ async def get_table(client, message):
 	for guild in client.guilds:
 		if guild.id == server:
 			for channel in guild.text_channels:
-				if str(channel.type) == 'text':
+				if str(channel.type) == 'text' and (channel.permissions_for(guild.me).send_messages):
 					text_channel_list.append(channel)
 	
 	#get all members in server
@@ -56,7 +56,7 @@ async def get_tableWords(client, message):
 	for guild in client.guilds:
 		if guild.id == server:
 			for channel in guild.text_channels:
-				if str(channel.type) == 'text':
+				if str(channel.type) == 'text' and (channel.permissions_for(guild.me).send_messages):
 					text_channel_list.append(channel)
 	
 	#get all members in server
