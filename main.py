@@ -150,7 +150,11 @@ async def on_message(message):
 	elif "cock" in message.content.lower():
 		async with message.channel.typing():
 			await message.reply(file=discord.File('other/YEP.png'))
-	
+
+	elif message.content.startswith("!thonksun"):
+		async with message.channel.typing():
+			await message.reply("<a:thonksun:919561040457502770>")
+
 	elif message.content.startswith("!thonk"):
 		async with message.channel.typing():
 			await message.reply(file=discord.File('other/ThonkSpin.gif'))
