@@ -38,7 +38,7 @@
 >   Sends number of words sendt by @user, or yourself
 
 >**!wordCountChannel [@user(optional)]**    
->   Sends number of words sendt by @user, or yourself i that channel
+>   Sends number of words sendt by @user, or yourself in that channel
 
 >**!wordCountAll**      
 >   Sends total number of words sendt 
