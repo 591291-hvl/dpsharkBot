@@ -5,10 +5,8 @@ import discord
 #todo
 #I really really need to reduce number of lines by reusing methods
 
-
-#returns table of users and number of messages sendt
-async def get_table(client, message):
-	#get all text channels in server
+#returns list of all channels
+def get_channel_list(client, message):
 	text_channel_list = []
 	server = message.guild.id
 	for guild in client.guilds:
@@ -16,13 +14,24 @@ async def get_table(client, message):
 			for channel in guild.text_channels:
 				if str(channel.type) == 'text' and (channel.permissions_for(guild.me).send_messages):
 					text_channel_list.append(channel)
-	
-	#get all members in server
+	return text_channel_list
+
+##returns list of all members
+def get_member_list(client, message):
+	server = message.guild.id
 	member_list = []
 	for guild in client.guilds:
 		if guild.id == server:
 			for member in guild.members:
 				member_list.append(member)
+	return member_list
+
+#returns table of users and number of messages sendt
+async def get_table(client, message):
+
+	text_channel_list = get_channel_list(client, message)
+	member_list = get_member_list(client, message)
+
 	#list for counting
 	member_counter = []
 	for x in member_list:
@@ -50,21 +59,10 @@ async def get_table(client, message):
 
 #returns table of users and number of words sendt
 async def get_tableWords(client, message):
-	#get all text channels in server
-	text_channel_list = []
-	server = message.guild.id
-	for guild in client.guilds:
-		if guild.id == server:
-			for channel in guild.text_channels:
-				if str(channel.type) == 'text' and (channel.permissions_for(guild.me).send_messages):
-					text_channel_list.append(channel)
-	
-	#get all members in server
-	member_list = []
-	for guild in client.guilds:
-		if guild.id == server:
-			for member in guild.members:
-				member_list.append(member)
+
+	text_channel_list = get_channel_list(client, message)
+	member_list = get_member_list(client, message)
+
 	#list for counting
 	member_counter = []
 	for x in member_list:
@@ -90,7 +88,7 @@ async def get_tableWords(client, message):
 	
 	return member_list, member_counter
 
-#return number of words sendt by [@user(optional)]
+#return number of words sendt in channel by [@user(optional)]
 async def get_wordchannel(user, client, message):
 	counter = 0
 
@@ -110,7 +108,7 @@ async def get_wordchannel(user, client, message):
 	async for msg in text_channel.history(limit=10000):
 		if msg.author.id == int(userID):
 			counter += len(" ".join(msg.content.split()).split(" "))
-	return "Number of messages: " + str(counter)
+	return "Number of words by " + str(client.get_user(int(userID))) + " in this channel: " + str(counter)
 
 
 #returns string of users: number of messages
@@ -166,13 +164,7 @@ async def get_img(client, message):
 async def get_count(user, client, message):
 	counter = 0
 
-	text_channel_list = []
-	server = message.guild.id
-	for guild in client.guilds:
-		if guild.id == server:
-			for channel in guild.text_channels:
-				if str(channel.type) == 'text' and (channel.permissions_for(guild.me).send_messages):
-					text_channel_list.append(channel)
+	text_channel_list = get_channel_list(client, message)
 	
 	userID = 0
 	if not user:
@@ -189,19 +181,13 @@ async def get_count(user, client, message):
 		async for msg in txtChannel.history(limit=10000):
 			if msg.author.id == int(userID):
 				counter += 1
-	return "Number of messages: " + str(counter)
+	return "Number of messages by " + str(client.get_user(int(userID))) + ": " + str(counter)
 
 #Returns total number of messages sendt in server
 async def get_countAll(client,message):
 	counter = 0
 
-	text_channel_list = []
-	server = message.guild.id
-	for guild in client.guilds:
-		if guild.id == server:
-			for channel in guild.text_channels:
-				if str(channel.type) == 'text' and (channel.permissions_for(guild.me).send_messages):
-					text_channel_list.append(channel)
+	text_channel_list = get_channel_list(client, message)
 	
 	for txtChannel in text_channel_list:
 		async for msg in txtChannel.history(limit=10000):
@@ -260,13 +246,7 @@ async def get_wordImg(client, message):
 async def get_wordCountAll(client,message):
 	counter = 0
 
-	text_channel_list = []
-	server = message.guild.id
-	for guild in client.guilds:
-		if guild.id == server:
-			for channel in guild.text_channels:
-				if str(channel.type) == 'text' and (channel.permissions_for(guild.me).send_messages):
-					text_channel_list.append(channel)
+	text_channel_list = get_channel_list(client, message)
 	
 	for txtChannel in text_channel_list:
 		async for msg in txtChannel.history(limit=10000):
@@ -278,13 +258,7 @@ async def get_wordCountAll(client,message):
 async def get_wordCount(user, client, message):
 	counter = 0
 
-	text_channel_list = []
-	server = message.guild.id
-	for guild in client.guilds:
-		if guild.id == server:
-			for channel in guild.text_channels:
-				if str(channel.type) == 'text' and (channel.permissions_for(guild.me).send_messages):
-					text_channel_list.append(channel)
+	text_channel_list = get_channel_list(client, message)
 	
 	userID = 0
 	if not user:
@@ -302,4 +276,4 @@ async def get_wordCount(user, client, message):
 			if msg.author.id == int(userID):
 				wordsInMessage = " ".join(msg.content.split()).split(" ")
 				counter += len(wordsInMessage)
-	return "Number of words: " + str(counter)
+	return "Number of words by " + str(client.get_user(int(userID))) + ": " + str(counter)
