@@ -100,10 +100,8 @@ Database with list of response
 -send ascii art     
 --fix length(longer than x does not fit)    
 -send dm's      
--play music     
--add list of commands("!help")      
+-play music          
 -Bot starts typing whenever someone is typing?      
--Add description to bot     
 -Send discord nitro emojies for users       
 -clean up main, comments        
 -delete message whenever someone talks bad about bot(adds *flavor*)     

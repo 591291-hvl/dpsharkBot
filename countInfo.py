@@ -38,7 +38,7 @@ async def get_table(client, message):
 		member_counter.append(0)
 	#count through messages
 	for txtChannel in text_channel_list:
-		async for msg in txtChannel.history(limit=10000):
+		async for msg in txtChannel.history(limit=100000):
 			for i in range(len(member_list)):
 				if msg.author.id == member_list[i].id:
 					member_counter[i] += 1
@@ -69,7 +69,7 @@ async def get_tableWords(client, message):
 		member_counter.append(0)
 	#count through messages
 	for txtChannel in text_channel_list:
-		async for msg in txtChannel.history(limit=10000):
+		async for msg in txtChannel.history(limit=100000):
 			for i in range(len(member_list)):
 				if msg.author.id == member_list[i].id:
 					member_counter[i] += len(" ".join(msg.content.split()).split(" "))
@@ -105,7 +105,7 @@ async def get_wordchannel(user, client, message):
 		user = user.replace(" ","")
 		userID = user
 	
-	async for msg in text_channel.history(limit=10000):
+	async for msg in text_channel.history(limit=100000):
 		if msg.author.id == int(userID):
 			counter += len(" ".join(msg.content.split()).split(" "))
 	return "Number of words by " + str(client.get_user(int(userID))) + " in this channel: " + str(counter)
@@ -178,7 +178,7 @@ async def get_count(user, client, message):
 		userID = user
 	
 	for txtChannel in text_channel_list:
-		async for msg in txtChannel.history(limit=10000):
+		async for msg in txtChannel.history(limit=100000):
 			if msg.author.id == int(userID):
 				counter += 1
 	return "Number of messages by " + str(client.get_user(int(userID))) + ": " + str(counter)
@@ -190,7 +190,7 @@ async def get_countAll(client,message):
 	text_channel_list = get_channel_list(client, message)
 	
 	for txtChannel in text_channel_list:
-		async for msg in txtChannel.history(limit=10000):
+		async for msg in txtChannel.history(limit=100000):
 			counter += 1
 
 	return "Total number of messages: " + str(counter)
@@ -249,7 +249,7 @@ async def get_wordCountAll(client,message):
 	text_channel_list = get_channel_list(client, message)
 	
 	for txtChannel in text_channel_list:
-		async for msg in txtChannel.history(limit=10000):
+		async for msg in txtChannel.history(limit=100000):
 			counter += len(" ".join(msg.content.split()).split(" "))
 
 	return "Total number of words: " + str(counter)
@@ -272,7 +272,7 @@ async def get_wordCount(user, client, message):
 		userID = user
 	
 	for txtChannel in text_channel_list:
-		async for msg in txtChannel.history(limit=10000):
+		async for msg in txtChannel.history(limit=100000):
 			if msg.author.id == int(userID):
 				wordsInMessage = " ".join(msg.content.split()).split(" ")
 				counter += len(wordsInMessage)
