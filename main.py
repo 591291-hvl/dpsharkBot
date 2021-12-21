@@ -4,6 +4,7 @@ intents = discord.Intents(messages=True, guilds=True, members=True)
 import os
 import art
 from random import randint
+from discord import FFmpegPCMAudio
 
 
 from keepAlive import keepAlive
@@ -165,6 +166,20 @@ async def on_message(message):
 			number = message.content[2:]
 			value = randint(1,int(number))
 			await message.reply("Rolled d" + str(number) + ": " + str(value))
+
+	elif message.content.lower().startswith("!join"):
+		#magic?
+		FFMPEG_OPTS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5', 'options': '-vn'}
+		#connect to voice channel
+		channel = message.author.voice.channel
+		vc = await channel.connect()
+		#play audio
+		vc.play(FFmpegPCMAudio('other/pizzatime.mp3',**FFMPEG_OPTS), after=lambda e: print('done', e))
+		vc.is_playing()
+		#disconnect
+		print("Done")
+
+
 
 	#"main" function of bot
 	elif "weed" in message.content.lower().replace(" ",""):
