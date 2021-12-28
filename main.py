@@ -167,17 +167,18 @@ async def on_message(message):
 			value = randint(1,int(number))
 			await message.reply("Rolled d" + str(number) + ": " + str(value))
 
-	elif message.content.lower().startswith("!join"):
+	#unused because seperate bot takes care of music
+	#elif message.content.lower().startswith("!join"):
 		#magic?
-		FFMPEG_OPTS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5', 'options': '-vn'}
+	#	FFMPEG_OPTS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5', 'options': '-vn'}
 		#connect to voice channel
-		channel = message.author.voice.channel
-		vc = await channel.connect()
+	#	channel = message.author.voice.channel
+	#	vc = await channel.connect()
 		#play audio
-		vc.play(FFmpegPCMAudio('other/pizzatime.mp3',**FFMPEG_OPTS), after=lambda e: print('done', e))
-		vc.is_playing()
+	#	vc.play(FFmpegPCMAudio('other/pizzatime.mp3',**FFMPEG_OPTS), after=lambda e: print('done', e))
+	#	vc.is_playing()
 		#disconnect
-		print("Done")
+	#	print("Done")
 
 
 
