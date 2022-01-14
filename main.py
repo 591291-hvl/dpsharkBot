@@ -4,7 +4,7 @@ intents = discord.Intents(messages=True, guilds=True, members=True)
 import os
 import art
 from random import randint
-from discord import FFmpegPCMAudio
+#from discord import FFmpegPCMAudio
 
 
 from keepAlive import keepAlive

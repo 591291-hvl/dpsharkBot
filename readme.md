@@ -87,6 +87,7 @@ Read messages sendt by users, and send response + some other things
 ### Todo:
 Move everything to slash commands :(    
 Database with list of response    
+-More detailed and informative pie graph(words and number to describe what is what) 
 -Dont count images as words sendt  
 -Add general purpose use, non weed response(not very serious)   
 -Use serverid as a key for custom responses per server    
