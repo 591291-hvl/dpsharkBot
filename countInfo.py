@@ -134,6 +134,7 @@ async def get_img(client, message):
 	cutOffPoint = 3
 	#max nr of messages
 	maxMessages = df['% Messages'].sum()
+	plt.title("Total number of words: " + str(maxMessages))
 	for i in range(len(member_counter)):
 		if (member_counter[i]/maxMessages) < (cutOffPoint/100):
 			cutOffPoint = i
@@ -204,7 +205,7 @@ async def get_wordTxt(client, message):
 		outStr += str(member_list[i]) + ": " + str(member_counter[i]) + "\n"
 	return outStr	
 
-#returns piechart of users: %of messages
+#returns piechart of users: %of words
 async def get_wordImg(client, message):
 	member_list, member_counter = await get_tableWords(client, message)
 
@@ -216,6 +217,7 @@ async def get_wordImg(client, message):
 	cutOffPoint = 3
 	#max nr of messages
 	maxWords = df['% Words'].sum()
+	plt.title("Total number of words: " + str(maxWords))
 	for i in range(len(member_counter)):
 		if (member_counter[i]/maxWords) < (cutOffPoint/100):
 			cutOffPoint = i
