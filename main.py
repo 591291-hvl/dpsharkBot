@@ -15,7 +15,6 @@ import webhook
 #import manualAdd
 
 
-
 #Should always be commented out
 #manualAdd.remove_all()
 #manualAdd.add_all()
@@ -44,7 +43,11 @@ async def on_ready():
 async def on_message(message):
 	if message.author == client.user:
 		return
-	
+
+	if not message.author.id == 223112835671130112:
+		db["commandlog"] = db["commandlog"] +1
+
+
 	if message.content.lower().startswith("!add") and message.author.id == 223112835671130112:
 		async with message.channel.typing():
 			await message.channel.send(weeddb.add_respons(message.content[5:]))
@@ -180,6 +183,9 @@ async def on_message(message):
 		#disconnect
 	#	print("Done")
 
+	elif  message.content.lower().startswith("!commandlog"):
+		async with message.channel.typing():
+			await message.channel.send(str(db["commandlog"]))
 
 
 	#"main" function of bot
@@ -188,6 +194,8 @@ async def on_message(message):
 			await message.channel.send(weeddb.print_respons())
 
 	else:
+		if not message.author.id == 223112835671130112:
+			db["commandlog"] = db["commandlog"] -1
 		print("Nothing")
 
 
