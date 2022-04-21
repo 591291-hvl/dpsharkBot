@@ -189,7 +189,7 @@ async def on_message(message):
 
 
 	#"main" function of bot
-	elif "weed" in message.content.lower().replace(" ",""):
+	elif "weed" in message.content.lower().replace(" ","") and not "milkweed" in message.content.lower().replace(" ","") :
 		async with message.channel.typing():
 			await message.channel.send(weeddb.print_respons())
 
