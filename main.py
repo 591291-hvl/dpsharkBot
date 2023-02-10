@@ -1,4 +1,3 @@
-from replit import db
 import discord
 
 intents = discord.Intents(messages=True, guilds=True, members=True, message_content=True)
@@ -7,7 +6,7 @@ import art
 from random import randint
 #from discord import FFmpegPCMAudio
 
-from keepAlive import keepAlive
+# from keepAlive import keepAlive
 import weeddb
 import countInfo
 import webhook
@@ -45,29 +44,26 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    if not message.author.id == 223112835671130112:
-        db["commandlog"] = db["commandlog"] + 1
+    # if message.content.lower().startswith(
+    #         "!add") and message.author.id == 223112835671130112:
+    #     async with message.channel.typing():
+    #         await message.channel.send(weeddb.add_respons(message.content[5:]))
 
-    if message.content.lower().startswith(
-            "!add") and message.author.id == 223112835671130112:
-        async with message.channel.typing():
-            await message.channel.send(weeddb.add_respons(message.content[5:]))
+    # elif message.content.lower().startswith(
+    #         "!remove") and message.author.id == 223112835671130112:
+    #     async with message.channel.typing():
+    #         await message.channel.send(
+    #             weeddb.remove_respons(message.content[8:]))
 
-    elif message.content.lower().startswith(
-            "!remove") and message.author.id == 223112835671130112:
-        async with message.channel.typing():
-            await message.channel.send(
-                weeddb.remove_respons(message.content[8:]))
-
-    elif "!all" in message.content:
-        async with message.channel.typing():
-            #add to method
-            numberOfKeys = db["nrWeedRespons"]
-            strOut = ""
-            for x in range(numberOfKeys):
-                print(str(x))
-                strOut += (str(x) + " " + str(db[str(x)]) + "\n")
-            await message.channel.send("```\n" + strOut + "\n```")
+    # elif "!all" in message.content:
+    #     async with message.channel.typing():
+    #         #add to method
+    #         numberOfKeys = db["nrWeedRespons"]
+    #         strOut = ""
+    #         for x in range(numberOfKeys):
+    #             print(str(x))
+    #             strOut += (str(x) + " " + str(db[str(x)]) + "\n")
+    #         await message.channel.send("```\n" + strOut + "\n```")
 
     elif message.content.lower().startswith("!help"):
         async with message.channel.typing():
@@ -204,9 +200,9 @@ async def on_message(message):
     #disconnect
     #	print("Done")
 
-    elif message.content.lower().startswith("!commandlog"):
-        async with message.channel.typing():
-            await message.channel.send(str(db["commandlog"]))
+    # elif message.content.lower().startswith("!commandlog"):
+    #     async with message.channel.typing():
+    #         await message.channel.send(str(db["commandlog"]))
 
     elif message.content.lower().startswith("!prompt"):
         async with message.channel.typing():
@@ -221,12 +217,11 @@ async def on_message(message):
             await message.channel.send(weeddb.print_respons())
 
     else:
-        if not message.author.id == 223112835671130112:
-            db["commandlog"] = db["commandlog"] - 1
         print("Nothing")
 
 
 #Functions, to be added to another class
 
-keepAlive()
-client.run(os.environ['TOKEN'])
+# keepAlive()
+# client.run(os.environ['TOKEN'])
+client.run("")
